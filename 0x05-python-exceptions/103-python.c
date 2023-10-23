@@ -1,44 +1,59 @@
 #include <Python.h>
 #include <stdio.h>
 
-void print_python_bytes(PyObject *p) {
-    printf("[.] bytes object info\n");
-    if (PyBytes_Check(p)) {
-        printf("  size: %zd\n", PyBytes_Size(p));
-        printf("  trying string: %s\n", PyBytes_AsString(p));
-        printf("  first %zd bytes: ", PyBytes_Size(p) + 1);
-        for (Py_ssize_t i = 0; i <= PyBytes_Size(p) && i < 10; i++) {
-            printf("%02x", (unsigned char)PyBytes_AsString(p)[i]);
-            if (i < PyBytes_Size(p))
-                printf(" ");
-        }
-        printf("\n");
-    } else {
-        printf("  [ERROR] Invalid Bytes Object\n");
+void print_python_list(PyObject *p)
+{
+    Py_ssize_t size, i;
+    PyObject *element;
+
+    if (!PyList_Check(p))
+    {
+        fprintf(stderr, "[ERROR] Invalid List Object\n");
+        return;
+    }
+
+    size = PyList_Size(p);
+    printf("[*] Python list info\n[*] Size of the Python List = %zd\n[*] Allocated = %zd\n", size, ((PyListObject *)p)->allocated);
+
+    for (i = 0; i < size; i++)
+    {
+        element = PyList_GetItem(p, i);
+        printf("Element %zd: %s\n", i, Py_TYPE(element)->tp_name);
     }
 }
 
-void print_python_list(PyObject *p) {
-    printf("[*] Python list info\n");
-    if (PyList_Check(p)) {
-        printf("[*] Size of the Python List = %zd\n", PyList_Size(p));
-        printf("[*] Allocated = %zd\n", ((PyListObject *)p)->allocated);
-        for (Py_ssize_t i = 0; i < PyList_Size(p); i++) {
-            printf("Element %zd: %s\n", i, Py_TYPE(PyList_GetItem(p, i))->tp_name);
-            if (PyBytes_Check(PyList_GetItem(p, i))) {
-                print_python_bytes(PyList_GetItem(p, i));
-            }
-        }
-    } else {
-        printf("  [ERROR] Invalid List Object\n");
+void print_python_bytes(PyObject *p)
+{
+    Py_ssize_t size, i;
+    char *str;
+
+    if (!PyBytes_Check(p))
+    {
+        fprintf(stderr, "[ERROR] Invalid Bytes Object\n");
+        return;
     }
+
+    size = PyBytes_Size(p);
+    str = PyBytes_AsString(p);
+
+    printf("[.] bytes object info\n  size: %zd\n  trying string: %s\n  first 10 bytes: ", size, str);
+
+    for (i = 0; i < size && i < 10; i++)
+    {
+        printf("%02x", str[i] & 0xFF);
+        if (i < size - 1)
+            printf(" ");
+    }
+    printf("\n");
 }
 
-void print_python_float(PyObject *p) {
-    printf("[.] float object info\n");
-    if (PyFloat_Check(p)) {
-        printf("  value: %lf\n", PyFloat_AsDouble(p));
-    } else {
-        printf("  [ERROR] Invalid Float Object\n");
+void print_python_float(PyObject *p)
+{
+    if (!PyFloat_Check(p))
+    {
+        fprintf(stderr, "[ERROR] Invalid Float Object\n");
+        return;
     }
+
+    printf("[.] float object info\n  value: %f\n", PyFloat_AS_DOUBLE(p));
 }

@@ -2,17 +2,10 @@
 
 import sys
 
-
 def safe_print_integer_err(value):
     try:
         print("{:d}".format(value))
-    except ValueError:
-        print(
-            "Exception: Unknown format code 'd' for object of type '{}'".format(
-                type(value).__name__
-            ),
-            file=sys.stderr,
-        )
-        return False
-    else:
         return True
+    except (ValueError, TypeError) as e:
+        print("Exception: {}".format(e), file=sys.stderr)
+        return False

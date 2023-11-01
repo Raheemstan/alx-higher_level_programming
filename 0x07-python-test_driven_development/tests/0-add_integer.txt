@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+"""
+This is the test module for the add_integer function.
+"""
+
+def test_add_integer():
+    """
+    Test the add_integer function.
+    """
+    assert add_integer(1, 2) == 3
+    assert add_integer(100, -2) == 98
+    assert add_integer(2) == 100
+    assert add_integer(100.3, -2) == 98
+    try:
+        add_integer(4, "School")
+    except Exception as e:
+        assert str(e) == "a must be an integer or b must be an integer"
+    try:
+        add_integer(None)
+    except Exception as e:
+        assert str(e) == "a must be an integer or b must be an integer"
+
+if __name__ == "__main__":
+    test_add_integer()

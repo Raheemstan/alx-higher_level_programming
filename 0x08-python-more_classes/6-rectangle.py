@@ -8,8 +8,8 @@ class Rectangle:
     """
     Rectangle class represents a rectangle with width and height attributes.
     """
-
     number_of_instances = 0
+    print_symbol = "#"
 
     def __init__(self, width=0, height=0):
         """
@@ -102,14 +102,14 @@ class Rectangle:
 
     def __str__(self):
         """
-        Returns a string representation of the rectangle using '#' characters.
+        Returns a string representation of the rectangle using the 'print_symbol' attribute.
 
         Returns:
             str: String representation of the rectangle.
         """
         if self.__width == 0 or self.__height == 0:
             return ""
-        return "\n".join([str("#" * self.__width)] * self.__height)
+        return "\n".join([str(Rectangle.print_symbol * self.__width)] * self.__height)
 
     def __repr__(self):
         """
@@ -126,7 +126,6 @@ class Rectangle:
         """
         print("Bye rectangle...")
         Rectangle.number_of_instances -= 1
-
 
 if __name__ == "__main__":
     my_rectangle_1 = Rectangle(2, 4)

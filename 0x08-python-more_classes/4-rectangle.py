@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module defines a class Rectangle.
+This module defines a class Rectangle that represents a rectangle with width and height attributes.
 """
 
 
@@ -93,6 +93,8 @@ class Rectangle:
         Returns:
             int: The perimeter of the rectangle.
         """
+        if self.__width == 0 or self.__height == 0:
+            return 0
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
@@ -114,30 +116,3 @@ class Rectangle:
             str: String representation of the Rectangle object.
         """
         return f"Rectangle({self.__width}, {self.__height})"
-
-    def __del__(self):
-        """
-        Destructor method that prints a message when a Rectangle object is deleted.
-        """
-        print("Bye rectangle...")
-
-    @staticmethod
-    def bigger_or_equal(rect_1, rect_2):
-        """
-        Compares two Rectangle objects and returns the one with the greater area.
-
-        Args:
-            rect_1 (Rectangle): The first rectangle to compare.
-            rect_2 (Rectangle): The second rectangle to compare.
-
-        Returns:
-            Rectangle: The Rectangle with the greater area.
-        """
-        if not isinstance(rect_1, Rectangle):
-            raise TypeError("rect_1 must be an instance of Rectangle")
-        if not isinstance(rect_2, Rectangle):
-            raise TypeError("rect_2 must be an instance of Rectangle")
-        if rect_1.area() >= rect_2.area():
-            return rect_1
-        else:
-            return rect_2

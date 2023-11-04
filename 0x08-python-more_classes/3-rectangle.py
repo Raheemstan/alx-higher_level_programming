@@ -6,11 +6,13 @@ This module defines a class Rectangle.
 
 class Rectangle:
     """
-    This class defines a rectangle with width and height attributes and provides methods to calculate area and perimeter.
-    It also includes string representation methods.
+    This class defines a rectangle with width and height attributes.
     """
 
     def __init__(self, width=0, height=0):
+        """
+        Initializes a Rectangle instance with the given width and height.
+        """
         self.width = width
         self.height = height
 
@@ -64,14 +66,16 @@ class Rectangle:
 
     def __str__(self):
         """
-        String representation of the rectangle using '#'.
+        Returns a string representation of the rectangle with the # character.
         """
         if self.__width == 0 or self.__height == 0:
             return ""
-        return "\n".join(["#" * self.__width for _ in range(self.__height)])
+        return "\n".join([str("#" * self.__width)] * self.__height)
 
     def __repr__(self):
         """
-        Representation of the rectangle as a string.
+        Returns a string representation of the rectangle in the form
+        'Rectangle(width, height)' to be able to recreate a new instance
+        by using eval().
         """
-        return "Rectangle({}, {})".format(self.__width, self.__height)
+        return f"Rectangle({self.__width}, {self.__height})"

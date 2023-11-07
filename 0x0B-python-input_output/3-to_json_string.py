@@ -9,10 +9,9 @@ This module contains a function that returns the JSON representation of an objec
 
 def to_json_string(my_obj):
     """
-    Returns the JSON representation of an object (string).
+    Return the JSON representation of an object as a string.
 
-    :param my_obj: The Python object to be converted to JSON.
-
-    :return: The JSON representation of the object as a string.
+    :param my_obj: The object to be converted to JSON.
+    :return: A JSON string representation of the object.
     """
     return json.dumps(my_obj)

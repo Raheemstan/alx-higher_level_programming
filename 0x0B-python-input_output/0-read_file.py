@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 This module contains a function that reads a text file (UTF-8) and prints it to stdout.
 """

@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+
+import unittest
+import json
+from from_json_string import from_json_string
+
+class TestFromJsonString(unittest.TestCase):
+    def test_from_json_string(self):
+        json_str = '{"name": "John", "age": 30, "city": "New York"}'
+        result = from_json_string(json_str)
+        expected = json.loads(json_str)
+        self.assertEqual(result, expected)
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+import unittest
+import os
+from write_file import write_file
+
+class TestWriteFile(unittest.TestCase):
+    def setUp(self):
+        self.filename = "test_write_file.txt"
+
+    def tearDown(self):
+        if os.path.exists(self.filename):
+            os.remove(self.filename)
+
+    def test_write_file(self):
+        text = "This is a test text."
+        write_file(self.filename, text)
+
+        with open(self.filename, "r", encoding="utf-8") as file:
+            content = file.read()
+
+        self.assertEqual(content, text)
+
+if __name__ == '__main__':
+    unittest.main()

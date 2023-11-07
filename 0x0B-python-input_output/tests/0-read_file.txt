@@ -1,0 +1,20 @@
+import unittest
+import io
+from unittest.mock import patch
+from 0-read_file import read_file
+
+class TestReadFile(unittest.TestCase):
+    def test_read_file(self):
+        # Create a mock file with sample content
+        sample_content = "Line 1\nLine 2\nLine 3\n"
+        mock_file = io.StringIO(sample_content)
+        
+        with patch("builtins.open", return_value=mock_file):
+            with patch("sys.stdout", new_callable=io.StringIO) as mock_stdout:
+                read_file("mock_filename.txt")
+                
+        # Check if the output matches the sample content
+        self.assertEqual(mock_stdout.getvalue(), sample_content)
+
+if __name__ == "__main__":
+    unittest.main()

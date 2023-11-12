@@ -1,11 +1,14 @@
 #!/usr/bin/python3
-"""Module for Rectangle class"""
+"""Rectangle module"""
+
 from models.base import Base
 
 class Rectangle(Base):
-    """Rectangle class"""
+    """Rectangle class, inherits from Base"""
+
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Initializes the Rectangle class"""
+        """Class constructor"""
+
         super().__init__(id)
         self.width = width
         self.height = height
@@ -85,3 +88,8 @@ class Rectangle(Base):
 
         for _ in range(self.__height):
             print("#" * self.__width)
+
+    def __str__(self):
+        """Return the string representation of the rectangle"""
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.__x, self.__y, self.__width, self.__height)

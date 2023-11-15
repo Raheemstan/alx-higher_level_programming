@@ -2,6 +2,7 @@
 """Base module"""
 
 import json
+import csv
 
 class Base:
     """Base class"""
@@ -89,3 +90,26 @@ class Base:
 
     def to_dictionary(self):
         return self.__dict__
+    
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        file_name = cls.__name__ + ".csv"
+        with open(file_name, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            for obj in list_objs:
+                writer.writerow(obj.to_csv())
+
+    @classmethod
+    def load_from_file_csv(cls):
+        file_name = cls.__name__ + ".csv"
+        try:
+            with open(file_name, mode='r', newline='') as file:
+                reader = csv.reader(file)
+                instances = []
+                for row in reader:
+                    args = [int(x) if i != 0 else x for i, x in enumerate(row)]
+                    instance = cls.create(*args)
+                    instances.append(instance)
+                return instances
+        except FileNotFoundError:
+            return []

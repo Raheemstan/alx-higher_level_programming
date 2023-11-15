@@ -3,6 +3,7 @@
 
 import json
 import csv
+import turtle
 
 class Base:
     """Base class"""
@@ -113,3 +114,35 @@ class Base:
                 return instances
         except FileNotFoundError:
             return []
+        
+    def to_csv(self):
+        return [self.id, self.width, self.height, self.x, self.y]
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        screen = turtle.Screen()
+        screen.title("Rectangles and Squares")
+        t = turtle.Turtle()
+
+        for rectangle in list_rectangles:
+            t.penup()
+            t.goto(rectangle.x, rectangle.y)
+            t.pendown()
+            t.forward(rectangle.width)
+            t.left(90)
+            t.forward(rectangle.height)
+            t.left(90)
+            t.forward(rectangle.width)
+            t.left(90)
+            t.forward(rectangle.height)
+            t.left(90)
+
+        for square in list_squares:
+            t.penup()
+            t.goto(square.x, square.y)
+            t.pendown()
+            for _ in range(4):
+                t.forward(square.size)
+                t.left(90)
+
+        turtle.done()

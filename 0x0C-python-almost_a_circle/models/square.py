@@ -29,6 +29,14 @@ class Square(Rectangle):
         return "[Square] ({}) {}/{} - {}".format(
             self.id, self.x, self.y, self.width)
 
+    def display(self):
+            result = ""
+            for _ in range(self.y):
+                result += "\n"
+            for _ in range(self.size):
+                result += " " * self.x + "#" * self.size + "\n"
+            return result[:-1]
+
     def update(self, *args, **kwargs):
         """Update the attributes of the square"""
 

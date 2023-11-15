@@ -85,12 +85,13 @@ class Rectangle(Base):
 
     def display(self):
         """Print the rectangle with '#' characters, considering x and y"""
-
-        for _ in range(self.__y):
-            print()
-
-        for _ in range(self.__height):
-            print(" " * self.__x + "#" * self.__width)
+ 
+        result = ""
+        for _ in range(self.y):
+            result += "\n"
+        for _ in range(self.height):
+            result += " " * self.x + "#" * self.width + "\n"
+        return result
 
     def __str__(self):
         """Return the string representation of the rectangle"""

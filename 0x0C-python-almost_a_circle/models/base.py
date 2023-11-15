@@ -76,3 +76,16 @@ class Base:
                 return [cls.create(**d) for d in list_dicts]
         except FileNotFoundError:
             return []
+        
+    
+    def update(self, *args, **kwargs):
+        attributes = ["id", "width", "height", "size", "x", "y"]
+        for idx, arg in enumerate(args):
+            setattr(self, attributes[idx], arg)
+
+        if not args or len(args) < len(attributes):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+
+    def to_dictionary(self):
+        return self.__dict__

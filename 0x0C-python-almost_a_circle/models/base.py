@@ -79,21 +79,9 @@ class Base:
         except FileNotFoundError:
             return []
         
-    
-    def update(self, *args, **kwargs):
-        attributes = ["id", "width", "height", "size", "x", "y"]
-        for idx, arg in enumerate(args):
-            setattr(self, attributes[idx], arg)
-
-        if not args or len(args) < len(attributes):
-            for key, value in kwargs.items():
-                setattr(self, key, value)
-
-    def to_dictionary(self):
-        return self.__dict__
-    
     @classmethod
     def save_to_file_csv(cls, list_objs):
+        """Save a list of instances to a CSV file"""
         file_name = cls.__name__ + ".csv"
         with open(file_name, mode='w', newline='') as file:
             writer = csv.writer(file)
@@ -102,6 +90,7 @@ class Base:
 
     @classmethod
     def load_from_file_csv(cls):
+        """Load a list of instances from a CSV file"""
         file_name = cls.__name__ + ".csv"
         try:
             with open(file_name, mode='r', newline='') as file:
@@ -114,12 +103,30 @@ class Base:
                 return instances
         except FileNotFoundError:
             return []
+    
+    def update(self, *args, **kwargs):
+        """Update the attributes of an instance"""
+        attributes = ["id", "width", "height", "size", "x", "y"]
+        for idx, arg in enumerate(args):
+            setattr(self, attributes[idx], arg)
+
+        if not args or len(args) < len(attributes):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+
+    def to_dictionary(self):
+        """Return the dictionary representation of an instance"""
+        return self.__dict__
         
+
     def to_csv(self):
+        """Return the CSV representation of an instance"""
         return [self.id, self.width, self.height, self.x, self.y]
+
 
     @staticmethod
     def draw(list_rectangles, list_squares):
+        """Draw rectangles and squares using the turtle module"""
         screen = turtle.Screen()
         screen.title("Rectangles and Squares")
         t = turtle.Turtle()

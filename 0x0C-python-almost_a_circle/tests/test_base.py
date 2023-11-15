@@ -18,7 +18,6 @@ class TestBase(unittest.TestCase):
         cls.s2 = Square(7, 9, 1)
         cls.list_squares_input = [cls.s1, cls.s2]
 
-
     def setUp(self):
         # Clean up CSV files before each test
         if os.path.exists("Rectangle.csv"):

@@ -1,39 +1,43 @@
 #!/usr/bin/python3
+"""
+Take stdin and check the input, make some operation on it
+"""
 import sys
 
-def print_stats(total_size, status_codes):
-    """Prints file size and status code statistics."""
-    print("File size: {}".format(total_size))
-    for code, count in sorted(status_codes.items()):
-        print("{}: {}".format(code, count))
+errorCode = {
+    "200": 0,
+    "301": 0,
+    "400": 0,
+    "401": 0,
+    "403": 0,
+    "404": 0,
+    "405": 0,
+    "500": 0,
+}
+numOfLine = 0
+sumSize = 0
 
-def parse_line(line, status_codes):
-    """Parses a log line and updates file size and status code statistics."""
-    try:
-        elements = line.split()
-        size = int(elements[-1])
-        code = elements[-2]
-        
-        # Update total file size
-        total_size[0] += size
+try:
+    for line in sys.stdin:
+        lineToken = line.split()
+        if len(lineToken) >= 2:
+            tmp = numOfLine
+            if lineToken[-2] in errorCode:
+                errorCode[lineToken[-2]] += 1
+            numOfLine += 1
+            sumSize += int(lineToken[-1])
+        if numOfLine % 10 == 0:
+            print("File size: {:d}".format(sumSize))
+            for key, value in sorted(errorCode.items()):
+                if value:
+                    print("{:s}: {:d}".format(key, value))
+    print("File size: {:d}".format(sumSize))
+    for key, value in sorted(errorCode.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))
 
-        # Update status code count
-        status_codes[code] = status_codes.get(code, 0) + 1
-    except (IndexError, ValueError):
-        pass
-
-if __name__ == "__main__":
-    total_size = [0]
-    status_codes = {}
-
-    try:
-        for i, line in enumerate(sys.stdin, start=1):
-            parse_line(line, status_codes)
-
-            # Print statistics every 10 lines
-            if i % 10 == 0:
-                print_stats(total_size[0], status_codes)
-
-    except KeyboardInterrupt:
-        # Handle keyboard interruption
-        print_stats(total_size[0], status_codes)
+except KeyboardInterrupt:
+    print("File size: {:d}".format(sumSize))
+    for key, value in sorted(errorCode.items()):
+        if value:
+            print("{:s}: {:d}".format(key, value))

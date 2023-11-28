@@ -1,14 +1,19 @@
 #!/usr/bin/python3
-"""
-This module contains a function that returns the dictionary description of a class instance with serializable attributes.
+"""Module 10-class_to_json.
+Returns the dictionary description with
+simple data structure (list, dictionary,
+string, integer and boolean)
+for JSON serialization of an object.
 """
 
 
 def class_to_json(obj):
-    """
-    Return the dictionary description of a class instance with serializable attributes.
+    """Creates a dict description of obj.
 
-    :param obj: An instance of a class.
-    :return: A dictionary representation of the object's attributes.
+    Args:
+        - obj: object to serialize
+
+    Returns: dictionnary description of obj
     """
+
     return obj.__dict__

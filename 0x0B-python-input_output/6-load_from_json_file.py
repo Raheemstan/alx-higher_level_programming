@@ -1,17 +1,20 @@
 #!/usr/bin/python3
-import json
+"""Module 8-load_from_json_file.
+Creates an Object from a “JSON file”.
+"""
 
-"""
-This module contains a function that creates an object from a JSON file.
-"""
+
+import json
 
 
 def load_from_json_file(filename):
-    """
-    Create an object from a JSON file.
+    """Creates an object from filename.
 
-    :param filename: The name of the JSON file.
-    :return: The Python object represented by the JSON file.
+    Args:
+        - filename: name of the JSON file
+
+    Returns: the object
     """
-    with open(filename, "r", encoding="utf-8") as file:
-        return json.load(file)
+
+    with open(filename, 'r') as f:
+        return json.load(f)

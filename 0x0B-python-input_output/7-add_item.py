@@ -1,25 +1,15 @@
 #!/usr/bin/python3
-import json
+"""Add all arguments to a Python list and save them to a file."""
+import sys
 
-"""
-This module contains a function that adds an item to a JSON file.
-"""
+if __name__ == "__main__":
+    save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+    load_from_json_file = \
+        __import__('6-load_from_json_file').load_from_json_file
 
-
-def add_item(filename, item):
-    """
-    Add an item to a JSON file.
-
-    :param filename: The name of the JSON file.
-    :param item: The item to add to the file.
-    """
     try:
-        with open(filename, "r", encoding="utf-8") as file:
-            data = json.load(file)
+        items = load_from_json_file("add_item.json")
     except FileNotFoundError:
-        data = []
-
-    data.append(item)
-
-    with open(filename, "w", encoding="utf-8") as file:
-        json.dump(data, file)
+        items = []
+    items.extend(sys.argv[1:])
+    save_to_json_file(items, "add_item.json")

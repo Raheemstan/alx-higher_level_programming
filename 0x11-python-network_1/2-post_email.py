@@ -1,18 +1,14 @@
-import urllib.request
-import urllib.parse
-import sys
-
-def post_email(url, email):
-    """Sends a POST request to the specified URL with the email as a parameter,
-    and returns the body of the response"""
-    value = {'email': email}
-    data = urllib.parse.urlencode(value).encode('ascii')
-    req = urllib.request.Request(url, data)
-    with urllib.request.urlopen(req) as response:
-        return response.read().decode("utf-8", "replace")
-
+#!/usr/bin/python3
+"""Takes in a URL and an email, sends a POST request to the passed URL with the
+email as a parameter, and displays the body of the response"""
 if __name__ == "__main__":
-    url = sys.argv[1]
-    email = sys.argv[2]
-    response_body = post_email(url, email)
-    print(response_body)
+    import urllib.request
+    import urllib.parse
+    import sys
+
+    value = {'email': sys.argv[2]}
+    data = urllib.parse.urlencode(value)
+    data = data.encode('ascii')
+    req = urllib.request.Request(sys.argv[1], data)
+    with urllib.request.urlopen(req) as response:
+        print(response.read().decode("utf-8", "replace"))
